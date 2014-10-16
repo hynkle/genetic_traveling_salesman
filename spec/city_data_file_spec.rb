@@ -5,8 +5,7 @@ include TravelingSalesman
 describe CityDataFile do
 
   before do
-    path = File.join(__dir__, 'fixtures', 'TSPDATA.txt')
-    @city_data_file = CityDataFile.new(path)
+    @city_data_file = CityDataFile.new(tspdata_path)
   end
 
   describe "#cities" do
