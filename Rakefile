@@ -1,9 +1,5 @@
-require 'rake/testtask'
+require 'rspec/core/rake_task'
 
-task :test do
-  $LOAD_PATH.unshift('spec')
-  require 'spec_helper'
-  Dir.glob('./spec/**/*_spec.rb') { |f| require f }
-end
+RSpec::Core::RakeTask.new(:spec)
 
-task default: :test
+task default: :spec

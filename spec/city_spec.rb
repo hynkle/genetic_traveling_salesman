@@ -4,25 +4,23 @@ include TravelingSalesman
 
 describe City do
 
-  before do
-    @coordinates = mock('coordinate_pair') 
-    @city = City.new(name: 'Atlantis', coordinates: @coordinates)
-  end
+  let(:coordinates) { double('CoordinatePair') }
+  subject { City.new(name: 'Atlantis', coordinates: coordinates) }
 
   it "has a name" do
-    @city.name.must_equal 'Atlantis'
+    expect(subject.name).to eq 'Atlantis'
   end
 
   it "has coordinates" do
-    @city.coordinates.must_equal @coordinates
+    expect(subject.coordinates).to eq coordinates
   end
 
   describe "#distance_to" do
 
     it "calculates distance on a euclidean plane" do
-      city1 = City.new(name: 'One', coordinates: Struct.new(:x, :y).new(0, 0))
-      city2 = City.new(name: 'Two', coordinates: Struct.new(:x, :y).new(3, 4))
-      city1.distance_to(city2).must_equal 5
+      city1 = City.new(name: 'One', coordinates: double('CoordinatePair', x: 0, y: 0))
+      city2 = City.new(name: 'Two', coordinates: double('CoordinatePair', x: 3, y: 4))
+      expect(city1.distance_to(city2)).to eq 5
     end
 
   end

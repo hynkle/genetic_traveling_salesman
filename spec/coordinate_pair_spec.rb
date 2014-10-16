@@ -4,16 +4,14 @@ include TravelingSalesman
 
 describe CoordinatePair do
 
-  before do
-    @coordinate_pair = CoordinatePair.new(-1, 3)
-  end
+  subject { CoordinatePair.new(-1, 3) }
 
   it "has an x coordinate" do
-    @coordinate_pair.x.must_equal -1
+    expect(subject.x).to eq -1
   end
 
   it "has a y coordinate" do
-    @coordinate_pair.y.must_equal 3
+    expect(subject.y).to eq 3
   end
 
 end
