@@ -1,0 +1,30 @@
+#!/usr/bin/env ruby
+
+require 'pathname'
+ENV['BUNDLE_GEMFILE'] ||= File.expand_path("../../Gemfile",
+  Pathname.new(__FILE__).realpath)
+
+lib_dir = File.expand_path(File.join(__dir__, '..', 'lib'))
+$LOAD_PATH.unshift lib_dir unless $LOAD_PATH.include? lib_dir
+
+require 'rubygems'
+require 'bundler/setup'
+
+unless ARGV.size == 2
+  command_path = Pathname.new(__FILE__).relative_path_from(Pathname.new('.'))
+  $stderr.puts "USAGE EXAMPLE:  #{command_path} TSPDATA.txt 1000"
+  $stderr.puts "This will run a 1000-generation simulation using the data in TSPDATA.txt"
+  abort
+end
+
+
+require 'traveling_salesman/city_data_file'
+require 'traveling_salesman/solver'
+
+data_path = ARGV[0]
+num_generations = Integer(ARGV[1])
+
+cities = TravelingSalesman::CityDataFile.new(data_path).cities
+solver = TravelingSalesman::Solver.new(cities: cities, generations: num_generations)
+
+solver.solve!
