@@ -20,11 +20,21 @@ end
 
 require 'traveling_salesman/city_data_file'
 require 'traveling_salesman/solver'
+require 'csv'
 
 data_path = ARGV[0]
 num_generations = Integer(ARGV[1])
 
 cities = TravelingSalesman::CityDataFile.new(data_path).cities
 solver = TravelingSalesman::Solver.new(cities: cities, generations: num_generations)
+
+solver.on_each_generation do |generation, i|
+  fittest = generation.fittest
+  $stderr.puts "#%#{num_generations.to_s.size}d: %0.2f" % [i, fittest.overall_distance]
+end
+
+solver.after_completion do |last_generation|
+  puts last_generation.fittest.city_sequence.map(&:name).to_csv
+end
 
 solver.solve!
