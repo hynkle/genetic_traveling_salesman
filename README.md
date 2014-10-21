@@ -28,6 +28,10 @@ significantly less obvious.
 
 ## Usage
 
+### Requirements
+
+Requires Ruby 2.1+ due the use of required keyword arguments.
+
 ### Setup
 
 Run `bundle install` from the working directory.  This is only needed if you
